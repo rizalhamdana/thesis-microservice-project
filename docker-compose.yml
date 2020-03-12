@@ -1,127 +1,128 @@
-version: '3'
-services: 
-    citizen-api:
-        container_name: citizen_service
-        build: ./citizen-service
-        ports: 
-            - '8080:8080'
-        restart: on-failure
-        environment: 
-            AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
-        volumes: 
-            - api:/usr/src/app/
-        depends_on:
-            - mysql-server
-            - rabbitmq
-        networks:
-            - thesis_network
-    
-    mysql-server:
-        image: mysql:5.7
-        container_name: mysql_db_container
-        ports:
-            - '3306:3306'
-        environment: 
-            - MYSQL_DATABASE=${DB_NAME}
-            - MYSQL_ROOT_HOST=${DB_HOST} 
-            - MYSQL_USER=${DB_USER}
-            - MYSQL_PASSWORD=${DB_PASSWORD}
-            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-        volumes:
-            - database_mysql:/var/lib/mysql/
-        networks:
-            - thesis_network
- 
+version: "3"
+services:
+  citizen-api:
+    container_name: citizen_service
+    build: ./citizen-service
+    image: rizalhamdana/citizen-service
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    environment:
+      AMQP_URL: "amqp://rabbitmq?connection_attempts=5&retry_delay=5"
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mysql-server
+      - rabbitmq
+    networks:
+      - thesis_network
 
-    married-api:
-        container_name: married_service
-        build: ./married-service
-        ports: 
-            - '8083:8083'
-        restart: on-failure
-        environment: 
-            AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
-        volumes: 
-            - api:/usr/src/app/
-        depends_on:
-            - mongodb-server
-            - rabbitmq
-        networks:
-            - thesis_network
-    
-    family-api:
-        container_name: family_service
-        build: ./family-service
-        ports: 
-            - '8082:8082'
-        restart: on-failure
-        environment: 
-            AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
-        volumes: 
-            - api:/usr/src/app/
-        depends_on:
-            - mongodb-server
-            - rabbitmq
-        networks:
-            - thesis_network
+  mysql-server:
+    image: mysql:5.7
+    container_name: mysql_db_container
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - database_mysql:/var/lib/mysql/
+    networks:
+      - thesis_network
 
-    birth-api:
-        container_name: birth_service
-        build: ./birth-service
-        ports: 
-            - '8081:8081'
-        restart: on-failure
-        environment: 
-            AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
-        volumes: 
-            - api:/usr/src/app/
-        depends_on:
-            - mongodb-server
-            - rabbitmq
-        networks:
-            - thesis_network
+  married-api:
+    container_name: married_service
+    build: ./married-service
+    image: rizalhamdana/married-service
+    ports:
+      - "8083:8083"
+    restart: on-failure
+    environment:
+      AMQP_URL: "amqp://rabbitmq?connection_attempts=5&retry_delay=5"
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mongodb-server
+      - rabbitmq
+    networks:
+      - thesis_network
 
+  family-api:
+    container_name: family_service
+    build: ./family-service
+    image: rizalhamdana/family-service
+    ports:
+      - "8082:8082"
+    restart: on-failure
+    environment:
+      AMQP_URL: "amqp://rabbitmq?connection_attempts=5&retry_delay=5"
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mongodb-server
+      - rabbitmq
+    networks:
+      - thesis_network
 
-    mongodb-server:
-        image: mongo:4.2-bionic
-        container_name: mongodb_container
-        ports: 
-            - '27017:27017'
-        volumes: 
-            - database_mongodb:/data/db
-        networks: 
-            - thesis_network
+  birth-api:
+    container_name: birth_service
+    build: ./birth-service
+    image: rizalhamdana/birth-service
+    ports:
+      - "8081:8081"
+    restart: on-failure
+    environment:
+      AMQP_URL: "amqp://rabbitmq?connection_attempts=5&retry_delay=5"
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mongodb-server
+      - rabbitmq
+    networks:
+      - thesis_network
 
-               
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin_container
-        depends_on:
-            - mysql-server
-        environment:
-            - PMA_HOST=mysql-server # Note the "mysql". Must be the name of the what you used as the mysql service.
-            - PMA_USER=${DB_USER}
-            - PMA_PORT=${DB_PORT}
-            - PMA_PASSWORD=${DB_PASSWORD}
-        ports:
-            - 9090:80
-        restart: always
-        networks:
-            - thesis_network
-    
-    rabbitmq:
-        image: 'rabbitmq:3.8.2-management'
-        container_name: rabbitmq_container 
-        ports: 
-            - '5672:5672'
-            - '15672:15672'
-        networks: 
-            - thesis_network
-volumes: 
-    api:
-    database_mysql:
-    database_mongodb:
+  mongodb-server:
+    image: mongo:4.2-bionic
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - database_mongodb:/data/db
+    networks:
+      - thesis_network
 
-networks: 
-    thesis_network:
-        driver: bridge
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_container
+    depends_on:
+      - mysql-server
+    environment:
+      - PMA_HOST=mysql-server # Note the "mysql". Must be the name of the what you used as the mysql service.
+      - PMA_USER=${DB_USER}
+      - PMA_PORT=${DB_PORT}
+      - PMA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 9090:80
+    restart: always
+    networks:
+      - thesis_network
+
+  rabbitmq:
+    image: "rabbitmq:3.8.2-management"
+    container_name: rabbitmq_container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - thesis_network
+volumes:
+  api:
+  database_mysql:
+  database_mongodb:
+
+networks:
+  thesis_network:
+    driver: bridge
