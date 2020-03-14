@@ -12,4 +12,7 @@ in Indonesia. I also implemented microservice architecture in this project.
 1. Clone this repository into your computer
 2. Open terminal for Mac and Linux, or Command Prompt for Windows 
 3. Change directory to the root of cloned repository folder.
-4. run docker-compose up --build
+4. run docker-compose command
+```
+docker-compose up --build
+```
