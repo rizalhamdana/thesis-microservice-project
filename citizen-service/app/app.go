@@ -21,7 +21,7 @@ type App struct {
 
 // Initialize is the App struct's methods that used for initialize database and routers
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=True", config.DB.Username, config.DB.Password, config.DB.Host, config.DB.Name, config.DB.Charset)
+	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True", config.DB.Username, config.DB.Password, config.DB.Host, config.DB.Port, config.DB.Name, config.DB.Charset)
 	db, err := gorm.Open(config.DB.Dialect, dbURI)
 	if err != nil {
 		log.Fatal(dbURI)

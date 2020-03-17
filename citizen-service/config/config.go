@@ -20,6 +20,7 @@ type DBConfig struct {
 	Password string
 	Name     string
 	Charset  string
+	Port     string
 }
 
 // GetConfig is used for getting some configuration for our system
@@ -36,6 +37,7 @@ func GetConfig() *Config {
 			Username: os.Getenv("DB_USER"),
 			Password: os.Getenv("DB_PASSWORD"),
 			Name:     os.Getenv("DB_NAME"),
+			Port:     os.Getenv("DB_PORT"),
 			Charset:  "utf8",
 		},
 	}
