@@ -28,7 +28,7 @@ type CitizenAccountMessage struct {
 
 // ConsumeMarriedEvent is used for consuming a message from the queue whenever a married event is created
 func ConsumeMarriedEvent(db *gorm.DB) {
-	amqpURI := fmt.Sprintf("amqp://guest:guest@%s/", os.Getenv("RABBIT_MQ_HOST"))
+	amqpURI := fmt.Sprintf("amqp://guest:guest@%s:%s/", os.Getenv("RABBIT_MQ_HOST"), os.Getenv("RABBIT_MQ_PORT"))
 	conn, err := amqp.Dial(amqpURI)
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
