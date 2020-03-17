@@ -11,7 +11,7 @@ spec:
       tier: mysql
   strategy:
     type: Recreate
-  replicas: 2
+  replicas: 1
   template: # Template for the pods in this deployment
     metadata:
       labels: # labels to be applied to the pods in this deployment
