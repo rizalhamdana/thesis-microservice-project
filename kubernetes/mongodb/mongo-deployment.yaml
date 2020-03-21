@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-server
+  labels:
+    app: mongodb-server
+spec:
+  selector:
+    matchLabels:
+      app: mongodb-server
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb-server
+    spec:
+      containers:
+        # by default, the image is pulled from docker hub
+        - image: mongo
+          name: mongo
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+      volumes:
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pv-claim

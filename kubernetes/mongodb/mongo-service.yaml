@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-server
+  labels:
+    app: mongodb-server
+spec:
+  type: NodePort
+  ports:
+    # service port in cluster
+    - port: 27017
+  selector:
+    app: mongodb-server
+    tier: mongodb
