@@ -132,7 +132,7 @@ func preRegisterFamilyRecordFromMessage(marriedMessage *Message) bool {
 
 // GetCitizenDataFromNIK teet
 func GetCitizenDataFromNIK(nik string) (model.FamilyMember, error) {
-	url := fmt.Sprintf("http://citizen-api:8080/api/v1/citizens/%s", nik)
+	url := fmt.Sprintf("http://citizen-service/api/v1/citizens/%s", nik)
 	response, err := http.Get(url)
 	var citizenData model.FamilyMember = model.FamilyMember{}
 	if err == nil {
