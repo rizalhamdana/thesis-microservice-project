@@ -15,7 +15,9 @@ import (
 //ConnectDB is used for opening connection to mongodb database
 func ConnectDB() *mongo.Collection {
 	// Set client options
-	dbURI := fmt.Sprintf("%s://%s:%s", os.Getenv("DB_DRIVER"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"))
+	rootPass := os.Getenv("mongodb-root-password")
+
+	dbURI := fmt.Sprintf("mongodb://%s:%s@%s", "root", rootPass, os.Getenv("DB_HOST"))
 	clientOptions := options.Client().ApplyURI(dbURI)
 
 	// Connect to MongoDB
@@ -24,7 +26,7 @@ func ConnectDB() *mongo.Collection {
 		log.Fatal(err)
 	}
 	dbName := os.Getenv("DB_NAME")
-	collection := client.Database(dbName).Collection("married-regis")
+	collection := client.Database(dbName).Collection("birth-regis")
 	return collection
 }
 
