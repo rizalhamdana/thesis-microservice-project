@@ -27,7 +27,7 @@ func ConnectDB() *mongo.Collection {
 	}
 
 	dbName := os.Getenv("DB_NAME")
-	collection := client.Database(dbName).Collection("married-regis")
+	collection := client.Database(dbName).Collection("family-regis")
 
 	return collection
 }
