@@ -4,7 +4,8 @@ import os
 import redis
 import json
 
-redis = redis.Redis()
+redis = redis.StrictRedis()
+
 
 def hashing_password(password):
     hasher = hashlib.sha384(password.encode())
@@ -25,10 +26,8 @@ def create_token(user):
         'cached': True,
         'data': str(payload)
     })
-    caching(token, cache_data)
+    # caching(token, cache_data)
     return token
-
-
 
 
 def caching(token, data):
