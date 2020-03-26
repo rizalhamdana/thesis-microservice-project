@@ -1,9 +1,12 @@
 from mongoengine import connect, Document, StringField
+import os
 
-root_password = os.environ('mongodb-root-password')
-host_db = 'mongodb://root:{}@mongodb-server/admin-service'
+root_password = os.getenv('mongodb-root-password')
+host_db = 'mongodb://root:{}@mongodb-server/admin-service?authSource=admin'.format(
+    root_password)
+print(host_db)
 
-connect(host=host_db.format(root_password))
+connect(host=host_db)
 
 
 class Admin(Document):
