@@ -16,7 +16,7 @@ admin_auth_schema = {
     'properties': {
         'username': {'type': 'string'},
         'password': {'type': 'string'}
-       
+
     },
     'required': ['username', 'password']
 }
@@ -26,17 +26,18 @@ citizen_auth_schema = {
     'properties': {
         'nik': {'type': 'string'},
         'password': {'type': 'string'}
-       
+
     },
     'required': ['username', 'password']
 }
+
 
 @app.route(admin_prefix, methods=['POST'])
 @expects_json(auth_schema)
 def authentication_administrator():
     username = g.data['username']
     password = g.data['password']
-    hashed_password = hashing_password(password) 
+    hashed_password = hashing_password(password)
     admin = Admin.objects(username=username, password=hashed_password)
     if admin.count() <= 0:
         message['message'] = "Admin is not found"
@@ -45,14 +46,14 @@ def authentication_administrator():
     message['token'] = create_token(admin)
     return Response(json.dumps(message), status=200, mimetype='application/json')
 
+
 @app.route(admin_prefix, methods=['POST'])
 @expects_json(citizen_auth_schema)
 def authentication_citizen():
     nik = g.data['nik']
     password = g.data['password']
     hashed_password = hashing_password(password)
-    
-    
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5500, debug=True)
