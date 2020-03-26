@@ -1,5 +1,14 @@
 from mongoengine import connect, Document, StringField
-connect(db="admin-service")
+
+import os
+
+root_password = os.getenv('mongodb-root-password')
+host_db = 'mongodb://root:{}@mongodb-server/admin-service?authSource=admin'.format(
+    root_password)
+print(host_db)
+
+connect(host=host_db)
+
 
 class Admin(Document):
     full_name = StringField(required=True, max_length=50)
@@ -9,5 +18,3 @@ class Admin(Document):
 
     def __str__(self):
         return self.username
-
-        
