@@ -5,7 +5,7 @@ metadata:
   labels: # Labels that will be applied to the resource
     app: rabbitmq
 spec:
-  type: NodePort # Gives each node an external IP that’s accessible from outside the cluster and also opens a Port.
+  type: ClusterIP # Gives each node an external IP that’s accessible from outside the cluster and also opens a Port.
   selector:
     app: rabbitmq # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
