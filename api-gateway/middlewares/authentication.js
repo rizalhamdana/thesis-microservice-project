@@ -20,13 +20,17 @@ client.on('error', function(err){
 });
 
 function checkTokenCache(token){
-    client.get(token, function(error, result){
+    is_auth = client.get(token, function(error, result){
         if(error){
+            console.log(error);
             return false;
         }
-        return true;
+        else {
+            console.log(result);
+            return true;
+        }
     });
-    return true;
+    return is_auth;
 }
 
 module.exports = (req, res, next) => {
@@ -36,7 +40,6 @@ module.exports = (req, res, next) => {
         res.status(401).send('Unauthorized');
         return;
     }
-    var token = req.headers['Token'];
     var is_auth = checkTokenCache(token)
     if (!is_auth){
         res.status(403).send('Forbidden');
