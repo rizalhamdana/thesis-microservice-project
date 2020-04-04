@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment # Type of the kubernetes resource
+metadata:
+  name: api-gateway # Name of the Kubernetes resource
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1 # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: api-gateway # This deployment applies to any Pods matching the specified label
+  template: # This deployment will create a set of pods using the configurations in this template
+    metadata:
+      labels: # The labels that will be applied to all of the pods in this deployment
+        app: api-gateway
+    spec: # Spec for the container which will run in the Pod
+      containers:
+        - name: api-gateway
+          image: rizalhamdana/api-gateway:v1beta1 # The image we are getting from dockerhub
+          imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
+          ports:
+            - name: http
+              containerPort: 3000 # Should match the port number that the Go application listens on
+          envFrom:
+            - secretRef:
+                name: auth-secret
+            - secretRef:
+                name: redis
+            # Name of the secret environmental variable file to load
