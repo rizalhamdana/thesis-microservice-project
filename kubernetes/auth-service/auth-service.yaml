@@ -9,6 +9,7 @@ spec:
   selector:
     app: auth-service # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: auth-service
+      protocol: TCP
       port: 5500
       targetPort: 5500
