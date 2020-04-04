@@ -25,9 +25,9 @@ func (a *App) Initialize() {
 func (a *App) setRouters() {
 	a.Get("/api/v1/family", handler.GetAllFamilyRegis)
 	a.Get("/api/v1/family/{number}", handler.GetOneFamilyRegis)
-	a.Put("/api/v1/family-location/{number}", handler.UpdateOneFamilyLocation)
-	a.Put("/api/v1/verify-family/{number}", handler.VerifyFamilyDataByAdmin)
-	a.Put("/api/v1/add-member-family/{family_card_number}", handler.AddNewFamilyMember)
+	a.Put("/api/v1/family/update-location/{number}", handler.UpdateOneFamilyLocation)
+	a.Put("/api/v1/family/verify/{number}", handler.VerifyFamilyDataByAdmin)
+	a.Put("/api/v1/family/add/{family_card_number}", handler.AddNewFamilyMember)
 	a.Delete("/api/v1/family/{number}", handler.DeleteOneFamilyRegis)
 }
 
