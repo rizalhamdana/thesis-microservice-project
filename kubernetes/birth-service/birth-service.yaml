@@ -9,6 +9,7 @@ spec:
   selector:
     app: birth-service # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: birth-service
+      protocol: TCP
       port: 8081
       targetPort: 8081
