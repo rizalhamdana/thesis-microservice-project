@@ -9,6 +9,7 @@ spec:
   selector:
     app: married-service # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: married-service
+      protocol: TCP
       port: 8083
       targetPort: 8083
