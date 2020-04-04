@@ -39,10 +39,10 @@ func (a *App) Initialize(config *config.Config) {
 func (a *App) setRouters() {
 	a.Get("/api/v1/citizens", a.GetAllCitizens)
 	a.Post("/api/v1/citizens", a.SaveCitizen)
-	a.Post("/api/v1/auth-citizens/", a.AuthCitizen)
+	a.Post("/api/v1/citizens/auth", a.AuthCitizen)
 	a.Get("/api/v1/citizens/{NIK}", a.GetCitizen)
 	a.Put("/api/v1/citizens/{NIK}", a.UpdateCitizen)
-	a.Put("/api/v1/verify-citizens/{NIK}", a.VerifyCitizen)
+	a.Put("/api/v1/citizens/verify/{NIK}", a.VerifyCitizen)
 	a.Delete("/api/v1/citizens/{NIK}", a.DeleteCitizen)
 }
 
