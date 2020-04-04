@@ -30,7 +30,7 @@ router.get('/citizens/:nik', isAuth, (req, res) => {
 router.post('/citizens', isAuth, (req, res) => {
     var fullPath = '/api/v1/citizens'
     api.post(fullPath, req.body).then(resp => {
-        res.send(resp);
+        res.send(resp.data);
     }).catch(error => {
         res.status(error.response.status);
         res.send(error);
