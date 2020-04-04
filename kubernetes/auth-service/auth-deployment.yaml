@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment # Type of the kubernetes resource
+metadata:
+  name: auth-service # Name of the Kubernetes resource
+  labels:
+    app: auth-service
+spec:
+  replicas: 1 # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: auth-service # This deployment applies to any Pods matching the specified label
+  template: # This deployment will create a set of pods using the configurations in this template
+    metadata:
+      labels: # The labels that will be applied to all of the pods in this deployment
+        app: auth-service
+    spec: # Spec for the container which will run in the Pod
+      containers:
+        - name: auth-service
+          image: rizalhamdana/auth-service:v1beta3 # The image we are getting from dockerhub
+          imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
+          ports:
+            - name: http
+              containerPort: 5000 # Should match the port number that the Go application listens on
+          envFrom:
+            - secretRef:
+                name: auth-secret
+            - secretRef:
+                name: redis
+            - secretRef:
+                name: mongodb-server # Name of the secret environmental variable file to load
