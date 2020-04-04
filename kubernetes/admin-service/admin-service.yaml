@@ -9,6 +9,7 @@ spec:
   selector:
     app: admin-flask-service # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: admin-service
+      protocol: TCP
       port: 5000
       targetPort: 5000
