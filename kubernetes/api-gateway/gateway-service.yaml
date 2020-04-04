@@ -9,6 +9,7 @@ spec:
   selector:
     app: api-gateway # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: api-gateway
+      protocol: TCP
       port: 3000
       targetPort: 3000
