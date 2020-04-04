@@ -8,7 +8,7 @@ prefix = '/api/v1/admin'
 
 app.add_url_rule(f'{prefix}/<username>', 'get_one_admin',
                  admin_controller.get_one_admin, methods=['GET'])
-app.add_url_rule(f'{prefix}', 'create_account',
+app.add_url_rule(f'{prefix}/', 'create_account',
                  admin_controller.create_account, methods=['POST'])
 app.add_url_rule(f'{prefix}/<username>', 'delete_account',
                  admin_controller.delete_account, methods=['DELETE'])
