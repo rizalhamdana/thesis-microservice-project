@@ -35,7 +35,6 @@ function checkTokenCache(token){
 
 module.exports = (req, res, next) => {
     token = req.header('Token');
-    console.log(token)
     if(!token){
         res.status(401).send('Unauthorized');
         return;
