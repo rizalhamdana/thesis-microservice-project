@@ -9,6 +9,7 @@ spec:
   selector:
     app: citizen-service # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - name: http
+    - name: citizen-service
+      protocol: TCP
       port: 8080
       targetPort: 8080
