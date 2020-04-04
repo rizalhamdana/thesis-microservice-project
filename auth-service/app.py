@@ -1,15 +1,15 @@
-from flask import Flask, g, Response
+from flask import Flask, g, Response, request
 from flask_expects_json import expects_json
 import json
 from admin_model import Admin
-from security import hashing_password, create_token
-
+from security import hashing_password, create_token, token_check
 app = Flask(__name__)
-admin_prefix = "/api/v1/admin-auth"
-citizen_prefix = "/api/v1/citizen-auth"
+prefix = "/api/v1/auth"
 message = {
     'message': "Login Success"
 }
+
+
 
 admin_auth_schema = {
     'type': 'object',
@@ -21,19 +21,9 @@ admin_auth_schema = {
     'required': ['username', 'password']
 }
 
-citizen_auth_schema = {
-    'type': 'object',
-    'properties': {
-        'nik': {'type': 'string'},
-        'password': {'type': 'string'}
 
-    },
-    'required': ['username', 'password']
-}
-
-
-@app.route(admin_prefix, methods=['POST'])
-@expects_json(auth_schema)
+@app.route(prefix, methods=['POST'])
+@expects_json(admin_auth_schema)
 def authentication_administrator():
     username = g.data['username']
     password = g.data['password']
@@ -43,16 +33,9 @@ def authentication_administrator():
         message['message'] = "Admin is not found"
         return Response(json.dumps(message), status=404, mimetype='application/json')
     admin = admin.first()
+    message['message'] = 'Login success'
     message['token'] = create_token(admin)
     return Response(json.dumps(message), status=200, mimetype='application/json')
-
-
-@app.route(admin_prefix, methods=['POST'])
-@expects_json(citizen_auth_schema)
-def authentication_citizen():
-    nik = g.data['nik']
-    password = g.data['password']
-    hashed_password = hashing_password(password)
 
 
 if __name__ == '__main__':

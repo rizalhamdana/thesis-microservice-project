@@ -4,13 +4,13 @@ import os
 import redis
 import json
 
-redis = redis.StrictRedis()
+redis_password = os.getenv('redis-password')
+redis = redis.Redis(host='redis-master', password=redis_password)
 
 
 def hashing_password(password):
     hasher = hashlib.sha384(password.encode())
     return hasher.hexdigest()
-
 
 def create_token(user):
     payload = {
@@ -26,9 +26,10 @@ def create_token(user):
         'cached': True,
         'data': str(payload)
     })
-    # caching(token, cache_data)
+    caching(token, cache_data)
     return token
 
 
 def caching(token, data):
     redis.setex(token, 86400, str(data))
+
