@@ -5,7 +5,7 @@ metadata:
   labels:
     app: citizen-service
 spec:
-  replicas: 2 # Number of pods to run at any given time
+  replicas: 1 # Number of pods to run at any given time
   selector:
     matchLabels:
       app: citizen-service # This deployment applies to any Pods matching the specified label
@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: citizen-service
-          image: rizalhamdana/citizen-service:1.0.0 # The image we are getting from dockerhub
+          image: rizalhamdana/citizen-service:1.0.2 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http
