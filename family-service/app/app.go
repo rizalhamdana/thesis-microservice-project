@@ -18,7 +18,7 @@ type App struct {
 func (a *App) Initialize() {
 	a.Router = mux.NewRouter()
 	a.setRouters()
-	// go messaging.ConsumeMarriedEvent()
+	go messaging.ConsumeMarriedEvent()
 	go messaging.ConsumeBirthEvent()
 }
 
