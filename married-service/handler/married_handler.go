@@ -34,7 +34,8 @@ func CreateMarriedRegis(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("flake.NextID() failed with %s\n", err)
 	}
-	married.RegisNumber = id
+	stringId := strconv.Itoa(int(id))
+	married.RegisNumber = stringId
 	married.VerifiedStatus = false
 	collection := helper.ConnectDB()
 	result, err := collection.InsertOne(context.TODO(), married)
@@ -114,10 +115,10 @@ func VerifMarriedRegisByAdmin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	number := params["married_regis_number"]
-	marriedRegisNumber, _ := strconv.ParseInt(number, 10, 64)
+
 	collection := helper.ConnectDB()
 	filter := bson.M{
-		"regis_number": marriedRegisNumber,
+		"regis_number": number,
 	}
 	update := bson.D{
 		{"$set", bson.D{

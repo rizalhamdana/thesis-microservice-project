@@ -6,7 +6,7 @@ import (
 
 // MarriedRegis is a struct that represents how the Married data is stored in database
 type MarriedRegis struct {
-	RegisNumber                uint64             `json:"regis_number,omitempty" bson:"regis_number,omitempty"`
+	RegisNumber                string             `json:"regis_number,omitempty" bson:"regis_number,omitempty"`
 	VerifiedStatus             bool               `json:"verified_status" bson:"verified_status"`
 	MarriedCertificateNumber   string             `json:"married_certificate_number,omitempty" bson:"married_certificate_number,omitempty"`
 	HusbandNIK                 string             `json:"husband_nik,omitempty" bson:"husband_nik,omitempty"`

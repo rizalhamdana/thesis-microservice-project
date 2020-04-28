@@ -15,7 +15,7 @@ type Message struct {
 	HusbandNIK     string `json:"husband_nik"`
 	WifeNIK        string `json:"wife_nik"`
 	MarriedBookNum string `json:"married_certificate_number"`
-	RegisNumber    uint64 `json:"regis_number"`
+	RegisNumber    string `json:"regis_number"`
 }
 
 func failOnError(err error, msg string) {
