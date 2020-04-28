@@ -2,7 +2,7 @@ package model
 
 // Family struct
 type Family struct {
-	RegisNumber            uint64         `json:"regis_number" bson:"regis_number"`
+	RegisNumber            string         `json:"regis_number" bson:"regis_number"`
 	VerifiedStatus         bool           `json:"verified_status" bson:"verified_status"`
 	FamilyCardNumber       string         `json:"family_card_number" bson:"family_card_number"`
 	HeadOfHousehold        string         `json:"head_of_household" bson:"head_of_household"`

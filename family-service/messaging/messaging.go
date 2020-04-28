@@ -7,9 +7,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/rizalhamdana/family-service/helper"
+	"github.com/sony/sonyflake"
 
 	"github.com/rizalhamdana/family-service/model"
 
@@ -21,7 +23,7 @@ type Message struct {
 	HusbandNIK     string `json:"husband_nik"`
 	WifeNIK        string `json:"wife_nik"`
 	MarriedBookNum string `json:"married_certificate_number"`
-	RegisNumber    uint64 `json:"regis_number"`
+	RegisNumber    string `json:"regis_number"`
 }
 
 func failOnError(err error, msg string) {
@@ -110,6 +112,7 @@ func preRegisterFamilyRecordFromMessage(marriedMessage *Message) bool {
 	family.RegisNumber = regisNumber
 	family.VerifiedStatus = false
 	husband, err1 := GetCitizenDataFromNIK(marriedMessage.HusbandNIK)
+
 	wife, err2 := GetCitizenDataFromNIK(marriedMessage.WifeNIK)
 
 	if err1 == nil && err2 == nil {
@@ -117,7 +120,26 @@ func preRegisterFamilyRecordFromMessage(marriedMessage *Message) bool {
 		familyMembers = append(familyMembers, husband, wife)
 		family.FamilyMembers = familyMembers
 		family.HeadOfHousehold = husband.Name
-
+		nikHusband := husband.NIK
+		timeNow := time.Now()
+		year := strconv.Itoa(timeNow.Year())
+		yearSub := string(year[2:4])
+		day := strconv.Itoa(timeNow.Day())
+		var month string
+		if int(timeNow.Month()) < 10 {
+			month = "0" + strconv.Itoa(int(timeNow.Month()))
+		} else {
+			month = strconv.Itoa(int(timeNow.Month()))
+		}
+		flake := sonyflake.NewSonyflake(sonyflake.Settings{})
+		generatedID, err := flake.NextID()
+		if err != nil {
+			log.Fatalf("flake.NextID() failed with %s\n", err)
+		}
+		idStringFull := strconv.Itoa(int(generatedID))
+		idStringSub := string(idStringFull[len(idStringFull)-4 : len(idStringFull)])
+		familyCardNumber := string(nikHusband[0:6])
+		family.FamilyCardNumber = familyCardNumber + day + month + yearSub + idStringSub
 		collection := helper.ConnectDB()
 		collection.InsertOne(context.TODO(), family)
 		log.Println("Family Record is created")

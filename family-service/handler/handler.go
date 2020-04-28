@@ -20,7 +20,7 @@ func GetOneFamilyRegis(w http.ResponseWriter, r *http.Request) {
 	var params = mux.Vars(r)
 
 	number := params["number"]
-	regisNumber, _ := strconv.ParseInt(number, 10, 64)
+	regisNumber := number
 
 	filter := bson.M{
 		"$or": bson.A{
@@ -75,7 +75,7 @@ func DeleteOneFamilyRegis(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	number := params["number"]
-	regisNumber, _ := strconv.ParseInt(number, 10, 64)
+	regisNumber := number
 	filter := bson.M{
 		"$or": bson.A{
 			bson.M{"regis_number": regisNumber},
