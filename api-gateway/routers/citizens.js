@@ -19,7 +19,6 @@ router.get('/citizens/:nik', isAuth, (req, res) => {
     var nik = req.params['nik'];
     var fullPath = '/api/v1/citizens/' + nik;
     api.get(fullPath).then(resp => {
-        console.log(resp)
         res.send(resp.data);
     }).catch(error => {
         res.status(error.response.status);
@@ -51,6 +50,17 @@ router.delete('/citizens/:nik', isAuth, (req, res) => {
 router.put('/citizens/verif/:nik', isAuth, (req, res) => {
     var nik = req.params['nik'];
     var fullPath = '/api/v1/citizens/verify' + nik;
+    api.put(fullPath, req.body).then(resp => {
+        res.send(resp.data);
+    }).catch(error => {
+        res.status(error.response.status);
+        res.send(error);
+    });
+});
+
+router.put('/citizens/:nik', isAuth, (req, res) => {
+    var nik = req.params['nik'];
+    var fullPath = '/api/v1/citizens/' + nik;
     api.put(fullPath, req.body).then(resp => {
         res.send(resp.data);
     }).catch(error => {
