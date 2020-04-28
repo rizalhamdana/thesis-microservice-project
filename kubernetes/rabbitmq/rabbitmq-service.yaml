@@ -9,6 +9,7 @@ spec:
   selector:
     app: rabbitmq # Selects any Pod with labels `app=fullstack-app-mysql`
   ports:
-    - protocol: TCP
+    - name: rabbitmq
+      protocol: TCP
       port: 5672
       targetPort: 5672
