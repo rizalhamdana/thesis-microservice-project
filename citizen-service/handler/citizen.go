@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/rizalhamdana/citizen-service/model"
@@ -12,8 +13,10 @@ import (
 
 // GetAllCitizens used for getting all records in citizen tables
 func GetAllCitizens(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+
 	citizens := []model.Citizen{}
 	db.Find(&citizens)
+	log.Print("GET ALL")
 	respondJSON(w, http.StatusOK, citizens)
 }
 
