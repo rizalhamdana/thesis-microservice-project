@@ -48,8 +48,10 @@ router.delete('/married/:marriedId', isAuth, (req, res) => {
 });
 
 router.put('/married/verif/:marriedId', isAuth, (req, res) => {
+    
     var marriedId = req.params['marriedId'];
-    var fullPath = '/api/v1/married/verif' + marriedId;
+    console.log(marriedId);
+    var fullPath = '/api/v1/married/verif/' + marriedId;
     api.put(fullPath, req.body).then(resp => {
         res.send(resp.data);
     }).catch(error => {
