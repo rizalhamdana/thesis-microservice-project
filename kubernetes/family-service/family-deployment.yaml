@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: family-service
-          image: rizalhamdana/family-service:1.1.0 # The image we are getting from dockerhub
+          image: rizalhamdana/family-service:1.1.1 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http

@@ -3,7 +3,6 @@ package helper
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -14,9 +13,10 @@ import (
 
 //ConnectDB is used for opening connection to mongodb database
 func ConnectDB() *mongo.Collection {
-	rootPass := os.Getenv("mongodb-root-password")
+	// rootPass := os.Getenv("mongodb-root-password")
 
-	dbURI := fmt.Sprintf("mongodb://%s:%s@%s", "root", rootPass, os.Getenv("DB_HOST"))
+	// dbURI := fmt.Sprintf("mongodb://%s:%s@%s", "root", rootPass, os.Getenv("DB_HOST"))
+	dbURI := "mongodb+srv://rizalhamdana:21mei1998@cluster0-inove.gcp.mongodb.net/test?retryWrites=true&w=majority"
 	clientOptions := options.Client().ApplyURI(dbURI)
 
 	// Connect to MongoDB
