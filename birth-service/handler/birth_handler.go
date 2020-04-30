@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/rizalhamdana/birth-service/messaging"
@@ -39,6 +40,9 @@ func InsertBirthRegis(w http.ResponseWriter, r *http.Request) {
 	stringId := strconv.Itoa(int(id))
 
 	birthRegis.BirthRegisNumber = stringId
+
+	nik := generateNIK(birthRegis.FatherNIK, birthRegis.BirthDate)
+	birthRegis.NIK = nik
 	result, err := connection.InsertOne(context.TODO(), birthRegis)
 	if err != nil {
 		helper.GetError(err, w)
@@ -149,4 +153,21 @@ func DeleteOneBirthRegis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(result)
+}
+
+func generateNIK(fatherNIK string, birthDate string) string {
+	prefix := string(fatherNIK[0:6])
+	birthDateNoDash := strings.Replace(birthDate, "-", "", -1)
+	birthDatePreprocess := string(birthDateNoDash[0:4]) + string(birthDateNoDash[6:8])
+
+	flake := sonyflake.NewSonyflake(sonyflake.Settings{})
+	generatedID, err := flake.NextID()
+	if err != nil {
+		log.Fatalf("flake.NextID() failed with %s\n", err)
+	}
+	idStringFull := strconv.Itoa(int(generatedID))
+	idStringSub := string(idStringFull[len(idStringFull)-4 : len(idStringFull)])
+
+	nik := prefix + birthDatePreprocess + idStringSub
+	return nik
 }
