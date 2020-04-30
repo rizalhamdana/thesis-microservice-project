@@ -115,6 +115,7 @@ func addNewFamilyMemberFromMessage(message *BirthMessage) {
 		NIK:           message.NIK,
 		Sex:           message.Sex,
 		BirthPlace:    message.BirthPlace,
+		BirthDate:     message.BirthDate,
 		MarriedStatus: "Not Married",
 		FamilyRelStat: "Child",
 		Occupation:    "",

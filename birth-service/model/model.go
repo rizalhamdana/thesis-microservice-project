@@ -2,6 +2,7 @@ package model
 
 // Birth is a model that representing birth event data of one child
 type Birth struct {
+	NIK              string  `json:"NIK,omitempty" bson:"NIK,omitempty"`
 	BirthRegisNumber string  `json:"birth_regis_number,omitempty" bson:"birth_regis_number,omitempty"`
 	HeadOfHousehold  string  `json:"head_of_household,omitempty" bson:"head_of_household,omitempty"`
 	FamilyCardNumber string  `json:"family_card_number,omitempty" bson:"family_card_number,omitempty"`
@@ -21,4 +22,5 @@ type Birth struct {
 	ReporterNIK      string  `json:"reporter_nik,omitempty" bson:"reporter_nik,omitempty"`
 	WitnessOneNIK    string  `json:"witness_one_nik,omitempty" bson:"witness_one_nik"`
 	WitnessTwoNIK    string  `json:"witness_two_nik,omitempty" bson:"witness_two_nik,omitempty"`
+	VerifiedStatus   bool    `json:"verified_status,omitempty" bson:"verified_status,omitempty"`
 }

@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/rizalhamdana/birth-service/messaging"
+	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/rizalhamdana/birth-service/messaging"
+	"github.com/sony/sonyflake"
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/rizalhamdana/birth-service/helper"
@@ -29,6 +30,15 @@ func InsertBirthRegis(w http.ResponseWriter, r *http.Request) {
 
 	connection := helper.ConnectDB()
 	fmt.Println("Inserting to DB")
+	birthRegis.VerifiedStatus = false
+	flake := sonyflake.NewSonyflake(sonyflake.Settings{})
+	id, err := flake.NextID()
+	if err != nil {
+		log.Fatalf("flake.NextID() failed with %s\n", err)
+	}
+	stringId := strconv.Itoa(int(id))
+
+	birthRegis.BirthRegisNumber = stringId
 	result, err := connection.InsertOne(context.TODO(), birthRegis)
 	if err != nil {
 		helper.GetError(err, w)
