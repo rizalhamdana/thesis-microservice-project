@@ -27,7 +27,7 @@ router.get('/birth/:birthId', isAuth, (req, res) => {
 });
 
 router.post('/birth', isAuth, (req, res) => {
-    var fullPath = '/api/v1/birth/'
+    var fullPath = '/api/v1/birth'
     api.post(fullPath, req.body).then(resp => {
         res.send(resp.data);
     }).catch(error => {
