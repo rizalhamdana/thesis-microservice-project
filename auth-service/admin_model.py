@@ -3,7 +3,7 @@ from mongoengine import connect, Document, StringField
 import os
 
 root_password = os.getenv('mongodb-root-password')
-host_db = 'mongodb+srv://rizalhamdana:21mei1998@cluster0-inove.gcp.mongodb.net/test?retryWrites=true&w=majority'
+host_db = 'mongodb+srv://rizalhamdana:21mei1998@cluster0-inove.gcp.mongodb.net/admin-service?retryWrites=true&w=majority'
 print(host_db)
 
 connect(host=host_db)
