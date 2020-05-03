@@ -2,7 +2,7 @@ from flask import Flask, g, Response, request
 from flask_expects_json import expects_json
 import json
 from admin_model import Admin
-from security import hashing_password, create_token, token_check
+from security import hashing_password, create_token
 app = Flask(__name__)
 prefix = "/api/v1/auth"
 message = {
@@ -20,6 +20,7 @@ admin_auth_schema = {
     },
     'required': ['username', 'password']
 }
+
 
 
 @app.route(prefix, methods=['POST'])
