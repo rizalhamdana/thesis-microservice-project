@@ -29,6 +29,17 @@ router.post('/admin', isAuth, (req, res) => {
     });
 });
 
+router.get('/admin', isAuth, (req, res) => {
+    var fullPath = '/api/v1/admin/'
+    api.get(fullPath).then(resp => {
+        res.json(resp.data);
+    }).catch(error => {
+        console.log(error)
+        res.status(error.response.status);
+        res.send(error);
+    });
+});
+
 router.delete('/admin/:username', isAuth, (req, res) => {
     var username = req.params['username'];
     var fullPath = '/api/v1/admin/' + username;
