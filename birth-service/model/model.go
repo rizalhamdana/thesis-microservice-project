@@ -8,7 +8,7 @@ type Birth struct {
 	FamilyCardNumber string  `json:"family_card_number,omitempty" bson:"family_card_number,omitempty"`
 	Name             string  `json:"name,omitempty" bson:"name,omitempty"`
 	Sex              string  `json:"sex,omitempty" bson:"sex,omitempty"`
-	BirthPlace       string  `json:"birth_place" bson:"birth_place,omitempty"`
+	BirthPlace       string  `json:"birth_place,omitempty" bson:"birth_place,omitempty"`
 	BirthDate        string  `json:"birth_date,omitempty" bson:"birth_date,omitempty"`
 	KindOfBirth      string  `json:"kind_of_birth,omitempty" bson:"kind_of_birth,omitempty"`
 	BirthOrder       string  `json:"birth_order,omitempty" bson:"birth_order, omitempty"`
