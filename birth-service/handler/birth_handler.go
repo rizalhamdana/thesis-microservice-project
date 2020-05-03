@@ -98,6 +98,34 @@ func GetAllBirthRegis(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(allBirthRegis)
 }
 
+// VerifyBirthRegis is used for verifying one record of birth data
+func VerifyBirthRegis(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	birthRegisNumber := params["birth_regis_number"]
+
+	collection := helper.ConnectDB()
+	filter := bson.M{
+		"birth_regis_number": birthRegisNumber,
+	}
+	update := bson.D{
+		{"$set", bson.D{
+			{"verified_status", true},
+		}},
+	}
+	var birthRegis model.Birth
+	err := collection.FindOneAndUpdate(context.TODO(), filter, update).Decode(&birthRegis)
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`{"message": "` + err.Error() + `" }`))
+		return
+	}
+	messaging.PublishBirthEvent(&birthRegis)
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"message": "Birth successfully verified" }`))
+}
+
 //UpdateBirthRegis is used for updating birth data
 func UpdateBirthRegis(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

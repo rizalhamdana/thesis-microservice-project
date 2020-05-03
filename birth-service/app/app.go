@@ -26,6 +26,7 @@ func (a *App) setRouters() {
 	a.Post("/api/v1/birth", handler.InsertBirthRegis)
 	a.Delete("/api/v1/birth/{birth_regis_number}", handler.DeleteOneBirthRegis)
 	a.Put("/api/v1/birth/{birth_regis_number}", handler.UpdateBirthRegis)
+	a.Put("/api/v1/birth/verif/{birth_regis_number}", handler.VerifyBirthRegis)
 }
 
 // Get is used for Wrapping the routers for GET methods
