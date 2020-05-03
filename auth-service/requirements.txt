@@ -1,5 +1,6 @@
 attrs==19.3.0
 Click==7.0
+dnspython==1.16.0
 Flask==1.1.1
 flask-expects-json==1.4.0
 importlib-metadata==1.4.0
