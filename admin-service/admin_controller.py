@@ -29,6 +29,11 @@ def get_one_admin(username):
     admin = admin.first()
     return Response(admin.to_json(), status=200, mimetype='application/json')
 
+def get_all_admin():
+    admin = Admin.objects.exclude('id', 'password')
+    return Response(admin.to_json(), status=200, mimetype='application/json')
+
+
 
 @expects_json(admin_schema)
 def create_account():

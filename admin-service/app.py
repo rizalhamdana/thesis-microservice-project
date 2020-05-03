@@ -5,7 +5,8 @@ import admin_controller
 app = Flask(__name__)
 prefix = '/api/v1/admin'
 
-
+app.add_url_rule(f'{prefix}/', 'get_all_admin',
+                 admin_controller.get_all_admin, methods=['GET'])
 app.add_url_rule(f'{prefix}/<username>', 'get_one_admin',
                  admin_controller.get_one_admin, methods=['GET'])
 app.add_url_rule(f'{prefix}/', 'create_account',
