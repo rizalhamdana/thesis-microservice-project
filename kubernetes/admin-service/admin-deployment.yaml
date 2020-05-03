@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: admin-flask-service
-          image: rizalhamdana/admin-service:v1beta6 # The image we are getting from dockerhub
+          image: rizalhamdana/admin-service:1.0.0 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http

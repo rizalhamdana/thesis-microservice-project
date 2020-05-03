@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: auth-service
-          image: rizalhamdana/auth-service:v1beta3 # The image we are getting from dockerhub
+          image: rizalhamdana/auth-service:1.0.1 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http
