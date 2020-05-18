@@ -48,8 +48,6 @@ func InsertBirthRegis(w http.ResponseWriter, r *http.Request) {
 		helper.GetError(err, w)
 		return
 	}
-
-	messaging.PublishBirthEvent(&birthRegis)
 	json.NewEncoder(w).Encode(result)
 }
 

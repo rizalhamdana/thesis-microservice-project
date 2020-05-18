@@ -126,7 +126,7 @@ func AuthCitizen(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusInternalServerError, "There are something wrong in our server, try again later")
 		return
 	}
-	w.Write([]byte(`{"token": ` + token + ` }`))
+	w.Write([]byte(token))
 }
 
 func getCitizenOr404(db *gorm.DB, nik string, w http.ResponseWriter, r *http.Request) *model.Citizen {

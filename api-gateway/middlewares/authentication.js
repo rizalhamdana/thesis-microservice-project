@@ -33,7 +33,20 @@ function checkTokenCache(token){
     return is_auth;
 }
 
-module.exports = (req, res, next) => {
+const saveToken = (token, data) => {
+    client.set(token, data, function(err, reply){
+        if (err){
+            console.log(err);
+        }
+        return;
+    });
+    console.log("set expires");
+    client.expire(token, 86400)
+    return
+}
+
+
+const isAuth = (req, res, next) => {
     token = req.header('Token');
     if(!token){
         res.status(401).send('Unauthorized');
@@ -46,3 +59,6 @@ module.exports = (req, res, next) => {
     }
     next();
 }
+
+exports.isAuth = isAuth;
+exports.saveToken = saveToken;

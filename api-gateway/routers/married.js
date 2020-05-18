@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var adapter = require('./adapter');
-var isAuth = require('../middlewares/authentication');
+
+
+const { isAuth } = require("../middlewares/authentication");
 
 var BASE_URL = 'http://married-service:8083';
 

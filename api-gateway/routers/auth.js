@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var adapter = require('./adapter');
-var isAuth = require('../middlewares/authentication');
+
 
 var BASE_URL = 'http://auth-service:5500';
 var api = adapter(BASE_URL);

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: birth-service
 spec:
-  replicas: 2 # Number of pods to run at any given time
+  replicas: 1 # Number of pods to run at any given time
   selector:
     matchLabels:
       app: birth-service # This deployment applies to any Pods matching the specified label
@@ -16,11 +16,9 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: birth-service
-          image: rizalhamdana/birth-service:1.0.0 # The image we are getting from dockerhub
+          image: rizalhamdana/birth-service:1.0.1 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http
               containerPort: 8081 # Should match the port number that the Go application listens on
-          envFrom:
-            - secretRef:
-                name: mongodb-server # Name of the secret environmental variable file to load
+          

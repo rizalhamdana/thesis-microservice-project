@@ -36,6 +36,7 @@ func CreateMarriedRegis(w http.ResponseWriter, r *http.Request) {
 	}
 	stringId := strconv.Itoa(int(id))
 	married.RegisNumber = stringId
+	married.MarriedCertificateNumber = stringId
 	married.VerifiedStatus = false
 	collection := helper.ConnectDB()
 	result, err := collection.InsertOne(context.TODO(), married)
