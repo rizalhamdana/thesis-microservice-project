@@ -1,7 +1,5 @@
 package model
 
-import ()
-
 // MarriedRegis is a struct that represents how the Married data is stored in database
 type MarriedRegis struct {
 	RegisNumber                string `json:"regis_number,omitempty" bson:"regis_number,omitempty"`
@@ -20,7 +18,7 @@ type MarriedRegis struct {
 	WifeFatherNIK              string `json:"wife_father_nik,omitempty" bson:"wife_father_nik,omitempty"`
 	WifeMotherNIK              string `json:"wife_mother_nik,omitempty" bson:"wife_mother_nik,omitempty"`
 	MarriedDate                string `json:"married_date,omitempty" bson:"married_date,omitempty"`
-	MarriedTime                string `json:"married_time,omitempty bson:"married_time,omitempty"`
+	MarriedTime                string `json:"married_time,omitempty" bson:"married_time,omitempty"`
 	MarriedPlace               string `json:"married_place,omitempty" bson:"married_place,omitempty"`
 	CourtName                  string `json:"court_name,omitempty" bson:"court_name,omitempty"`
 	CourtDecisionNumber        string `json:"court_decision_number,omitempty" bson:"court_decision_number,omitempty"`
