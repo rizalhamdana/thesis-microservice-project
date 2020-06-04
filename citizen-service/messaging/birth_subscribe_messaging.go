@@ -116,6 +116,7 @@ func insertNewCitizenFromMessage(message *BirthMessage, db *gorm.DB) {
 		FatherNIK:           message.FatherNIK,
 		FamilyCardNumber:    message.FamilyCardNumber,
 		FamilyRelStat:       "Child",
+		Password:            message.NIK,
 		VerifiedStatus:      false,
 	}
 	if err := db.Save(&citizen).Error; err != nil {
