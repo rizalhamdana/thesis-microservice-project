@@ -1,7 +1,7 @@
 astroid==2.3.3
 attrs==19.3.0
 Click==7.0
-dnslib==0.9.12
+dnslib==0.9.17
 dnspython==1.16.0
 Flask==1.1.1
 flask-expects-json==1.4.0
